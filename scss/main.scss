@@ -1,0 +1,347 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/fonts/Playfair_Display/PlayfairDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/fonts/Playfair_Display/PlayfairDisplay-Bold.ttf') format('truetype');
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'Playball';
+  src: url('/fonts/Playball/Playball-Regular.ttf') format('truetype');
+}
+
+$anim-duration: 0.3s;
+
+$royal-blue: #385be8;
+$serenade: #fff4e7;
+$periwinkle: #C9D2FE;
+$portage: #8197f0;
+$cornflower-blue: #5c79eb;
+$selago: #edf0fc;
+$geraldine: #fa9a8a;
+$salmon: #ff8974;
+$bittersweet: #ff7c64;
+$carnation: #ff4f5c;
+$mustard: #ffdf5c;
+$buttery-white: #f1e8db;
+$swirl: #dbd4ca;
+$cloudy: #aaa49b;
+$storm-dust: #63605a;
+$black: #444;
+
+$blue-main: #1f43d2;
+$blue-lighter: #6c8cff;
+$blue-light: #BBE2FF;
+$beige-main: #FEFAE2;
+$yellow-main: #FDF86A;
+
+body {
+  background-color: #fff;
+  font-family: 'Montserrat' !important;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+div.app {
+  div.bar {
+    -webkit-app-region: drag;
+    height: 40px;
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  header {
+    user-select: none;
+    background-color: #fff;
+    height: 80px;
+    padding: 20px 10px;
+    margin: 30px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: box-shadow $anim-duration;
+    
+    &.shadow {
+      box-shadow: 0 0 30px #aaa;
+    }
+
+    a.logo {
+      background-color: $blue-main;
+      padding: 0 20px;
+      height: 60px;
+      line-height: 60px;
+      letter-spacing: 1.2px;
+      font-size: 36px;
+      font-family: 'Playball';
+      color: #fff;
+      margin: 0;
+      font-weight: 100;
+      transition: all $anim-duration;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(0.94);
+      }
+
+      &:active {
+        transform: scale(0.85);
+      }
+    }
+
+    div.menu {
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+
+      div.fade {
+        width: 30px;
+        height: 100%;
+        z-index: 1;
+        top: 0;
+        position: absolute;
+
+        &.start {
+          right: 0;
+          background: linear-gradient(to right, transparent, #fff 70%);
+        }
+
+        &.end {
+          left: 0;
+          background: linear-gradient(to left, transparent, #fff 70%);
+        }
+      }
+
+      ul {
+        list-style: none;
+        flex-wrap: nowrap;
+        display: flex;
+        padding: 0;
+        margin: 0 10px;
+        overflow-x: auto;
+
+        li {
+          display: inline-block;
+          margin: 0 15px;
+
+          &:first-child {
+            padding: 0 0 0 30px;
+          }
+
+          &:last-child {
+            padding: 0 30px 0 0;
+          }
+          
+          a {
+            color: #444;
+            font-size: 20px;
+            font-family: 'Playfair Display';
+            font-weight: 800;
+            transition: all $anim-duration;
+            display: block;
+
+            &:hover {
+              color: $blue-main;
+            }
+
+            &:active {
+              transform: scale(0.9);
+            }
+          }
+
+          &.active {
+            a {
+              border-bottom: 2px solid #444;
+
+              &:hover {
+                border-color: $blue-main;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    div.right {
+      margin: 0 0 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      button {
+        background-color: transparent;
+        color: #888;
+        border: 0;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 5px;
+        border-radius: 20px;
+        transition: all $anim-duration;
+
+        &:hover {
+          color: #fff;
+          background-color: #000;
+        }
+
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+
+      div.search {
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+
+        input {
+          height: 40px;
+          line-height: 40px;
+          border: 2px solid #e0e0e0;
+          color: #999;
+          padding: 0 20px;
+          font-size: 15px;
+          border-radius: 20px;
+
+          &::-webkit-input-placeholder {
+            color: #a0a0a0;
+          }
+        }
+
+        &.active {
+          button {
+            background-color: #000;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            transition: background-color $anim-duration;
+
+            &:hover {
+              background-color: #444;
+            }
+          }
+
+          input {
+            padding: 0 20px 0 50px;
+          }
+        }
+      }
+    }
+  }
+
+  div.container {
+    margin: 120px 0 0;
+  }
+
+  section.posts {
+    margin: 20px 0;
+    padding: 0 30px;
+
+    div.post {
+      margin: 30px 0;
+
+      h1 {
+        font-family: 'Playfair Display';
+        font-weight: 400;
+        font-size: 34px;
+        margin: 0;
+        color: #000;
+
+        a {
+          transition: all $anim-duration;
+          display: block;
+
+          &:hover {
+            color: $blue-main;
+          }
+
+          &:active {
+            transform: scale(0.99);
+          }
+        }
+      }
+
+      h2 {
+        font-size: 18px;
+        color: #aaa;
+        margin: 0;
+        font-weight: 100;
+      }
+
+      div.actions {
+        margin: 10px 0 0;
+        user-select: none;
+
+        a {
+          margin: 0 10px;
+          font-size: 14px;
+          font-weight: 800;
+          color: #c0c0c0;
+          transition: all $anim-duration;
+          display: inline-block;
+
+          &:first-child {
+            margin: 0 10px 0 0;
+          }
+
+          &:hover {
+            color: $blue-main;
+          }
+
+          &:active {
+            transform: scale(0.92);
+          }
+        }
+      }
+    }
+  }
+}
