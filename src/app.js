@@ -1,14 +1,13 @@
 import React from 'react';
-import classNames from 'classnames/bind';
 import RedditService from './services/reddit';
+import Header from './components/header';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      searchActive: false,
-      headerShadow: false
+      searchActive: false
     };
 
     this.onMenuScroll = this.onMenuScroll.bind(this);
@@ -27,10 +26,6 @@ class App extends React.Component {
       this.setState({
         posts
       });
-    });
-
-    window.addEventListener('scroll', event => {
-      this.setState({headerShadow: window.scrollY !== 0});
     });
   }
 
@@ -55,42 +50,7 @@ class App extends React.Component {
       <div className="app">
         <div className="bar"></div>
 
-        <header className={classNames({shadow: this.state.headerShadow})}>
-          <a className="logo">
-            bella
-          </a>
-
-          <div className="menu">
-            <ul ref="menuList" onWheel={this.onMenuScroll}>
-              <li className="active"><a>all</a></li>
-              <li><a>grandtour</a></li>
-              <li><a>europe</a></li>
-              <li><a>polska</a></li>
-              <li><a>mildlyinteresting</a></li>
-              <li><a>eli5</a></li>
-              <li><a>imgoingtohellforthis</a></li>
-            </ul>
-
-            <div className="fade start"></div>
-            <div className="fade end"></div>
-          </div>
-
-          <div className="right">
-            <div className={classNames('search', {active: this.state.searchActive})}>
-              {this.state.searchActive &&
-                <input type="text" placeholder="Search for subreddit..." />
-              }
-
-              <button onClick={this.onSearchToggle}>
-                <i className="material-icons">search</i>
-              </button>
-            </div>
-
-            <button className="search">
-              <i className="material-icons">settings</i>
-            </button>
-          </div>
-        </header>
+        <Header />
 
         <div className="container">
           {this.state.posts &&
