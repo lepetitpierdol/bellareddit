@@ -8,6 +8,7 @@ const url = require('url')
 const randomstring = require('randomstring');
 const querystring = require('query-string');
 const axios = require('axios');
+const btoa = require('btoa');
 
 const redditConfig = {
   clientID: 'qdNYFAYykXPQAQ'
@@ -68,7 +69,7 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('authorize', (event, arg) => {
+ipcMain.on('authorize', (ipcEvent, arg) => {
   const state = randomstring.generate({
     length: 16,
     charset: 'alphabetic'
@@ -91,28 +92,31 @@ ipcMain.on('authorize', (event, arg) => {
       console.log('redirect detected');
 
       let qs = querystring.parse(newUrl);
+      console.log(newUrl);
+      console.log(qs.code);
 
       if (qs.code) {
-        console.log('code found on querystring', qs.code);
-
-        axios.request({
+        axios({
           url: 'https://www.reddit.com/api/v1/access_token',
-          data: {
+          method: 'post',
+          data: querystring.stringify({
             grant_type: 'authorization_code',
             redirect_uri: redirectURI,
             code: qs.code
-          },
+          }),
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(redditConfig.clientID + ':' + '')
           },
-          auth: {
-            username: redditConfig.clientID,
-            password: ''
-          }
         })
         .then(res => {
-          console.dir(res.data);
-          ipcRenderer.send('authorized', res.data);
+          const json = res.data;
+
+          if (json.error) {
+            throw res;
+          }
+
+          ipcEvent.sender.send('authorized', json);
         })
         .catch(res => {
           console.dir(res);
@@ -125,9 +129,6 @@ ipcMain.on('authorize', (event, arg) => {
     authWindow = null
   });
 });
-
-
-
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

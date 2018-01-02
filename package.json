@@ -5,9 +5,11 @@
   "main": "main.js",
   "dependencies": {
     "axios": "^0.17.1",
+    "btoa": "^1.1.2",
     "classnames": "^2.2.5",
     "concurrently": "^3.5.1",
     "electron": "^1.7.10",
+    "fbemitter": "^2.1.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.1.0",
